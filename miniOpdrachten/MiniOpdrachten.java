@@ -5,16 +5,30 @@ import java.util.Random;
 public class MiniOpdrachten {
 
 	public static void main(String[] args) {
+		// opdracht 2
 		String woord = "hottentottententententoonstelling";
 		char letter = 't';
 		System.out.println("de letter " + letter + " komt " + hoeveelKeer(letter, woord) + " keer voor, in het woord " + woord);
 		
+		// opdracht 3
 		int[] lijst = { 1, 3, 6, 95, 35};
 		System.out.println("uitkomst optellen array = " + telArrayOp(lijst));
 		
+		// opdracht 4
 		int[] tienGetallen = arrayTienRandomGetallen();
 		System.out.println();
-		sortArray(tienGetallen);		
+		sortArray(tienGetallen);	
+		System.out.println();
+		
+		//opdracht 5
+		boolean[] onderdelen = { true, false, true, false};
+		Auto vroem = new Auto(onderdelen);
+		System.out.println(vroem.toString());
+		new Monteur().repareerAuto(vroem);
+		System.out.println(vroem.toString());
+		
+		
+		
 		
 	}
 	
@@ -96,10 +110,103 @@ class Auto{
 	}
 	
 	public String toString() {
-		return " ";
+		String kapotteOnderdelen = "Kapot zijn: ";
+		String heleOnderdelen = "Heel zijn: ";
+		if(this.motor) {
+			kapotteOnderdelen = kapotteOnderdelen.concat("de motor ");
+		} else {
+			heleOnderdelen = heleOnderdelen.concat("de motor ");
+		}
+		if(this.deur) {
+			kapotteOnderdelen = kapotteOnderdelen.concat("de deur ");
+		} else {
+			heleOnderdelen = heleOnderdelen.concat("de deur ");
+		}
+		if(this.voorruit) {
+			kapotteOnderdelen = kapotteOnderdelen.concat("de voorruit ");
+		} else {
+			heleOnderdelen = heleOnderdelen.concat("de voorruit ");
+		}
+		if(this.uitlaat) {
+			kapotteOnderdelen = kapotteOnderdelen.concat("de uitlaat ");
+		} else {
+			heleOnderdelen = heleOnderdelen.concat("de uitlaat ");
+		}
+		
+		
+		return kapotteOnderdelen + heleOnderdelen;
 	}
+
+	public boolean getMotor() {
+		return motor;
+	}
+
+	public void setMotor(boolean motor) {
+		this.motor = motor;
+	}
+
+	public boolean getDeur() {
+		return deur;
+	}
+
+	public void setDeur(boolean deur) {
+		this.deur = deur;
+	}
+
+	public boolean getVoorruit() {
+		return voorruit;
+	}
+
+	public void setVoorruit(boolean voorruit) {
+		this.voorruit = voorruit;
+	}
+
+	public boolean getUitlaat() {
+		return uitlaat;
+	}
+
+	public void setUitlaat(boolean uitlaat) {
+		this.uitlaat = uitlaat;
+	}
+	
+	
 }
 
 class Monteur{
+	void repareerAuto(Auto auto) {
+		int prijs = 0;
+		
+		for (int i = 0; i < 4; i++) {
+			switch(i) {
+			case 0:
+				if (auto.getMotor()) {
+					auto.setMotor(false);
+					System.out.println("Motor gemaakt!");
+					prijs += 25;
+				}
+			case 1:
+				if (auto.getDeur()) {
+					auto.setDeur(false);
+					System.out.println("Deur gemaakt!");
+					prijs += 25;
+				}
+			case 2:
+				if (auto.getVoorruit()) {
+					auto.setVoorruit(false);
+					System.out.println("Voorruit gemaakt!");
+					prijs += 25;
+				}
+			case 3:
+				if (auto.getUitlaat()) {
+					auto.setUitlaat(false);
+					System.out.println("Uitlaat gemaakt!");
+					prijs += 25;
+				}
+			}
+			
+		
+		}
+		System.out.println("De kosten zijn " + prijs + " euro!");
+	}
 	
 }
