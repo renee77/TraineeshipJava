@@ -1,6 +1,6 @@
 package miniOpdrachten;
 
-import java.util.Random;
+import java.util.*;
 
 public class MiniOpdrachten {
 
@@ -27,7 +27,16 @@ public class MiniOpdrachten {
 		new Monteur().repareerAuto(vroem);
 		System.out.println(vroem.toString());
 		
+		//opdracht 7 lingo
+		Scanner input = new Scanner(System.in);
+		//new Lingo().speelLingo(input);
 		
+		// opdracht 8
+		Boot boot = new Boot();
+		SpeedBoot speedBoot = new SpeedBoot();
+		Kapitein kapitein = new Kapitein();
+		kapitein.varen(speedBoot);
+		kapitein.varen(boot);
 		
 		
 	}
@@ -209,4 +218,93 @@ class Monteur{
 		System.out.println("De kosten zijn " + prijs + " euro!");
 	}
 	
+}
+
+class Lingo{
+	private String woord = "fiets";
+	private String woordSpeler;
+	private ArrayList<Integer> geradenLetters = new ArrayList<Integer>();
+	private ArrayList<Character> spelerLetters = new ArrayList<Character>();
+	private ArrayList<Character> letters = new ArrayList<Character>();
+	private boolean gewonnen =  false;
+	
+	void speelLingo(Scanner input) {
+		// woord in arraylist
+		for (int i = 0; i < woord.length(); i++) {
+			letters.add(woord.charAt(i));
+		}
+		// geradenLetters instellen op 0 geraden letters
+		for(int i = 0; i < woord.length(); i++) {
+			geradenLetters.add(0);
+		}
+		
+		System.out.println("Raad een woord van " + woord.length() + " letters");
+		System.out.println("2 is Letter goed en op juiste plaats, 1 is Letter goed niet op juiste plek, 0 is foute Letter.");
+		
+		//loop totdat de speler het woord heeft geraden
+		while(!gewonnen) {
+			// input speler	
+			System.out.println("Voer een woord in: ");
+			// weergave juistheid van geraden letters
+			for (int i = 0; i < geradenLetters.size(); i++) {
+				System.out.print(geradenLetters.get(i).toString());
+			}
+			System.out.println();
+			woordSpeler = input.next();
+			
+			//woordSpeler in arrayList
+			for (int i = 0; i < woordSpeler.length(); i++) {
+				spelerLetters.add(woordSpeler.charAt(i));
+			}
+			
+			// vergelijking van de woorden
+			if (woord.equalsIgnoreCase(woordSpeler)) { // gewonnen als de strings hetzelfde zijn
+				System.out.println("Gefeliciteerd je hebt gewonnen! Het woord is " + woord);
+				gewonnen = true;
+			} else if (woord.length() == woordSpeler.length()){ // check op juiste lengte invoer
+				for (int i = 0; i < woord.length(); i++) { 
+					for (int j = 0 ; j < woord.length(); j++) {
+						if (woordSpeler.charAt(i) == woord.charAt(j) && i == j) {
+							geradenLetters.set(i, 2);
+							break;
+						} else if (woordSpeler.charAt(i) == woord.charAt(j)) {
+							geradenLetters.set(i, 1);
+							break;
+						} else {
+							geradenLetters.set(i, 0);
+						}
+					}
+				}
+			} else {
+				System.out.println("Onjuiste invoer!");
+			}
+			
+			
+		}
+		//zodat het volgende spel weer schoon begint.
+		gewonnen = false;	
+	
+	}
+	
+}
+
+class Boot{
+	void starten() {
+		System.out.println("De boot vaart");
+	}
+}
+
+class SpeedBoot extends Boot{
+	void starten() {
+		System.out.println("De speedboot vaart");
+	}
+}
+
+class Kapitein{
+	void varen(Boot boot) {
+		if (boot instanceof SpeedBoot) {
+			System.out.println("Ik zet mijn pet even af!");
+		}
+		boot.starten();
+	}
 }
