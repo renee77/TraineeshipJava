@@ -38,7 +38,22 @@ public class MiniOpdrachten {
 		kapitein.varen(speedBoot);
 		kapitein.varen(boot);
 		
+		// opdracht 9
+		Vliegtuig boing = new Vliegtuig();
+		Vogel kraai = new Vogel();
 		
+		hoeVliegtHet(boing);
+		hoeVliegtHet(kraai);
+		vliegend ding = watVliegt();
+		ding.vliegen();
+	}
+	
+	static vliegend watVliegt() {
+		return new Vliegtuig();
+	}
+	
+	static void hoeVliegtHet(vliegend ding) {
+		ding.vliegen();
 	}
 	
 	static int hoeveelKeer(char letter, String woord) {
@@ -303,8 +318,31 @@ class SpeedBoot extends Boot{
 class Kapitein{
 	void varen(Boot boot) {
 		if (boot instanceof SpeedBoot) {
-			System.out.println("Ik zet mijn pet even af!");
+			System.out.println("Ik zet even mijn pet af!");
 		}
 		boot.starten();
+	}
+}
+
+interface vliegend{
+	void vliegen();
+	void landen();
+}
+
+class Vogel implements vliegend{
+	public void vliegen() {
+		System.out.println("De vogel vliegt door het klappen met de vleugels");
+	}
+	public void landen() {
+		System.out.println("De vogel landt zachtjes");
+	}
+}
+
+class Vliegtuig implements vliegend{
+	public void vliegen(){
+		System.out.println("Het vliegtuig vliegt door de motor");
+	}
+	public void landen() {
+		System.out.println("Het vliegtuig landt met veel vaart op de grond");
 	}
 }
